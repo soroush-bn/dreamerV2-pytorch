@@ -1,7 +1,8 @@
+import os
+
 import gym
 import pygame
 import matplotlib
-import argparse
 from gym import logger
 
 try:
@@ -14,15 +15,8 @@ except ImportError as e:
 from collections import deque
 from pygame.locals import VIDEORESIZE
 
-import collections
-import functools
-import logging
-import os
 import pathlib
 import sys
-import warnings
-import resource
-import time
 
 try:
     import rich.traceback
@@ -63,14 +57,13 @@ class color:
 configs = pathlib.Path(sys.argv[0]).parent / 'configs.yaml'
 configs = yaml.safe_load(configs.read_text())
 config = elements.Config(configs['defaults'])
-parsed, remaining = elements.FlagParser(configs=['defaults']).parse_known(
-    exit_on_help=False)
+parsed, remaining = elements.Flags(configs=['defaults']).parse_known()
 for name in parsed.configs:
     config = config.update(configs[name])
-config = elements.FlagParser(config).parse(remaining)
+config = elements.Flags(config).parse(remaining)
 
 logdir = pathlib.Path(config.logdir).expanduser()
-
+print("log dir is : "+ str(logdir))
 config = config.update(
     steps=config.steps // config.action_repeat,
     eval_every=config.eval_every // config.action_repeat,
@@ -489,7 +482,8 @@ step = 0
 agnt = agent.Agent(config, None, action_space, step)
 
 print("loading agent")
-agnt.load_state_dict(torch.load(logdir / 'variables.pt', map_location=device))
+print(logdir / 'variables.pt')
+agnt.load_state_dict(torch.load(r"E:\projects\dreamerV2-pytorch\dreamerv2\logdir\space_invaders_logdir\variables.pt", map_location=device))
 
 
 agnt.to(device)

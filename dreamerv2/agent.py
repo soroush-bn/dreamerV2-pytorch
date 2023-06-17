@@ -1,11 +1,12 @@
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.distributions as tdist
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import elements
-import common
+from common import *
 
 from dreamerv2 import expl
 
@@ -18,7 +19,7 @@ class Agent(common.Module):
         self._logger = logger  # not used
         self._action_space = actspce
         self._num_act = actspce.n if hasattr(actspce, 'n') else actspce.shape[0]
-        self._should_expl = elements.Until(int(
+        self._should_expl = elements.when.Until(int(
             config.expl_until / config.action_repeat))
         self._counter = step
         self.step = step

@@ -4,7 +4,8 @@ rnl_data
 tests/
 testing/
 exp_management/
-
+dreamerv2/logdir/
+pretrained/
 retro_data/
 old/
 notebooks/

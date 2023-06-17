@@ -4,8 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.distributions as tdist
 
-import common
-import math
+from dreamerv2 import common
 
 
 class RSSM(common.Module):

@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-import common
+from dreamerv2 import common
 
 
 class Driver:

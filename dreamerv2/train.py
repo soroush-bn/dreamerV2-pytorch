@@ -6,9 +6,6 @@ import pathlib
 import sys
 import warnings
 import resource
-import subprocess
-
-import gym
 
 try:
     import rich.traceback
